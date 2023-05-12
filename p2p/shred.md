@@ -312,7 +312,7 @@ When using Merkle authentication,
 the interpretation of "data shred" used for erasure coding begins immediately after the signature field
 and ends immediately before the Merkle proof section.
 
-Let $x_{i,b}$ be the $b$-th byte of the $i$-th data shred of the FEC set (numbered $0, 1, \ldots, N-1$) interpreted as an element of the finite field $GF(2^8)$ (i.e. $\mathbb{F}_2[\gamma] / (\gamma^8 + \gamma^4 + \gamma^3 + \gamma^2 + 1)$).
+Let $x_{i,b}$ be the $b$-th byte of the $i$-th data shred of the FEC set (numbered $0, 1, \ldots, N-1$) interpreted as an element of the finite field $GF(2^8)$ (i.e. $\mathbb{F}_2[\gamma] / (\gamma^8 + \gamma^4 + \gamma^3 + \gamma^2 + 1)$ ).
 
 Taking one $b$ at a time, define the polynomial $P_b(x)$ of order less than $N$ such that $P_b(i) = x_i$ for all $0\le i < N$ (interpreting the byte value of $i$ as an element of $GF(2^8)$).
 This polynomial is unique.
@@ -322,7 +322,9 @@ More precisely, let $y_{j,b}$ be the $b$-th byte of the $j$-th code shred for $0
 Then $y_{j,b} = P_b(N+j)$, where $N+j$ is computed as an integer and then interpreted as an element of $GF(2^8)$.
 
 Equivalently, this is a linear operation, so it can also be described as a matrix-vector product over $GF(2^8)$:
-$$ M \left( \begin{array}{c}
+
+$$ 
+M \left( \begin{array}{c}
 x_{0,b} \\
 x_{1,b} \\
 \vdots \\
@@ -330,7 +332,8 @@ x_{N-1,b}  \end{array} \right) = \left( \begin{array}{c}
 y_{0,b} \\
 y_{1,b} \\
 \vdots \\
-y_{K-1,b}  \end{array} \right).$$
+y_{K-1,b}  \end{array} \right).
+$$
 
 The matrix $M$ depends only on $N$ and $K$. 
 There are various ways to compute $M$, but one description is
@@ -399,11 +402,11 @@ The Merkle proof section is composed of the following:
 
 | Offset        | Size | Type                  | Description                  |
 |---------------|-----:|-----------------------|------------------------------|
-| end-$20h$-20     | 20B  | Truncated Merkle hash | Root hash of the Merkle tree |
-| end-$20h$  | 20B  | Truncated Merkle hash | Merkle hash of sibling leaf node     |
-| end-$20h$+20  | 20B  | Truncated Merkle hash | Merkle hash of sibling of parent of leaf node     |
+| end - $20h$ - 20     | 20B  | Truncated Merkle hash | Root hash of the Merkle tree |
+| end - $20h$  | 20B  | Truncated Merkle hash | Merkle hash of sibling leaf node     |
+| end - $20h$ + 20  | 20B  | Truncated Merkle hash | Merkle hash of sibling of parent of leaf node     |
 | ... |  ... |  ... |  ... | 
-| end-20        | 20B  | Truncated Merkle hash | Merkle hash of child of root |
+| end - 20        | 20B  | Truncated Merkle hash | Merkle hash of child of root |
 
 The Merkle proof contains the other information needed to compute the full branch from the leaf in the packet to the root.
 For example, in [canonical Merkle tree Figure 2](core/merkle-tree.md#figure_2), 
